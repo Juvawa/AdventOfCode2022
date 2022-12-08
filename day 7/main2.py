@@ -27,9 +27,13 @@ if __name__ == '__main__':
         elif command[0] == "dir":
             Node(command[1], size=0, parent=currentNode, directory=command[1])
 
-    resultList = findall(root, lambda node: node.size <= 100000)
-    result = 0
-    for node in resultList:
-        result += node.size
+    total_size_filesystem = 70000000
+    needed_update_space = 30000000
 
-    print(result)
+    current_free_space = total_size_filesystem - root.size
+    nodes = findall(root, lambda node: node.size >= (needed_update_space - current_free_space))
+    resultlist = []
+    for node in nodes:
+        resultlist.append(node.size)
+
+    print(min(resultlist))
